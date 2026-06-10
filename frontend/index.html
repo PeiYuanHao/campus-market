@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>校内闲置集市</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Campus Market Demo</p>
+          <h1>校内闲置集市</h1>
+          <p class="hero__text">
+            一个适合课堂展示的二手交易平台示例，覆盖前端交互、后端接口、数据库建模和轻量 AI 能力。
+          </p>
+          <div class="hero__cta">
+            <button id="open-auth" class="btn btn--primary">登录 / 注册</button>
+            <button id="scroll-publish" class="btn btn--ghost">发布商品</button>
+          </div>
+        </div>
+        <div class="hero__stats">
+          <div class="stat-card">
+            <span class="stat-card__label">默认账号</span>
+            <strong>demo / 123456</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__label">演示亮点</span>
+            <strong>AI 自动生成描述</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__label">技术结构</span>
+            <strong>FastAPI + SQLite + JS</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="quick-entry">
+        <div id="entry-state" class="entry-state">
+          <p>当前以游客身份浏览，可以直接查看商品，也可以登录后发布和收藏。</p>
+        </div>
+        <div class="quick-entry__actions">
+          <a id="account-link" class="profile-chip hidden" href="/account">
+            <img id="account-avatar" class="profile-chip__avatar" src="" alt="avatar" />
+            <span>
+              <strong id="account-name">账户中心</strong>
+              <small id="account-role">点击进入</small>
+            </span>
+          </a>
+          <button id="open-auth-inline" class="btn btn--primary">登录 / 注册</button>
+        </div>
+      </section>
+
+      <main class="layout">
+        <section id="publish-section" class="panel">
+          <div class="section-heading">
+            <div>
+              <p class="section-heading__tag">快速发布</p>
+              <h2>发布你的二手商品</h2>
+            </div>
+          </div>
+          <form id="publish-form" class="form">
+            <div id="publish-mode" class="tip">新发布的商品会立即出现在商品广场和你的账户中心里。</div>
+            <input id="title" class="input" type="text" placeholder="商品标题" required />
+            <div class="form-row">
+              <input id="price" class="input" type="number" min="0.01" step="0.01" placeholder="售价" required />
+              <input id="original-price" class="input" type="number" min="0" step="0.01" placeholder="原价" />
+            </div>
+            <div class="form-row">
+              <select id="condition-level" class="input" required>
+                <option value="good">成色良好</option>
+                <option value="new">接近全新</option>
+                <option value="fair">正常使用痕迹</option>
+              </select>
+              <select id="publish-category" class="input" required></select>
+            </div>
+            <input id="image-url" class="input" type="url" placeholder="图片链接（可选）" />
+            <textarea id="description" class="input textarea" placeholder="商品描述"></textarea>
+            <div class="form-actions">
+              <button id="ai-btn" type="button" class="btn btn--ghost">AI 生成描述</button>
+              <button id="submit-btn" type="submit" class="btn btn--primary">发布商品</button>
+              <button id="cancel-edit-btn" type="button" class="btn btn--ghost hidden">取消编辑</button>
+            </div>
+            <p id="ai-tip" class="tip"></p>
+          </form>
+        </section>
+
+        <section class="panel panel--wide">
+          <div class="section-heading">
+            <div>
+              <p class="section-heading__tag">商品广场</p>
+              <h2>实时浏览校园闲置</h2>
+            </div>
+            <button id="refresh-items" class="btn btn--ghost btn--small">刷新列表</button>
+          </div>
+
+          <div class="filters">
+            <input id="keyword" class="input" type="text" placeholder="搜索教材、耳机、宿舍神器..." />
+            <select id="category-filter" class="input">
+              <option value="">全部分类</option>
+            </select>
+            <select id="status-filter" class="input">
+              <option value="">全部状态</option>
+              <option value="on_sale">在售</option>
+              <option value="reserved">已预订</option>
+              <option value="sold">已售出</option>
+            </select>
+            <button id="search-btn" class="btn btn--primary">查询</button>
+          </div>
+
+          <div id="items-grid" class="items-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="detail-modal" class="modal hidden">
+      <div class="modal__backdrop"></div>
+      <div class="modal__panel">
+        <button id="close-detail" class="modal__close">×</button>
+        <div id="detail-content"></div>
+      </div>
+    </div>
+
+    <div id="auth-modal" class="modal hidden">
+      <div class="modal__backdrop"></div>
+      <div class="modal__panel modal__panel--compact">
+        <button id="close-auth" class="modal__close">×</button>
+        <div class="section-heading">
+          <div>
+            <p class="section-heading__tag">身份验证</p>
+            <h2>登录或注册</h2>
+          </div>
+        </div>
+        <form id="auth-form" class="form">
+          <input id="auth-username" class="input" type="text" placeholder="用户名" required />
+          <input id="auth-password" class="input" type="password" placeholder="密码" required />
+          <input id="auth-phone" class="input" type="text" placeholder="手机号（注册时可填）" />
+          <div class="form-actions">
+            <button type="button" id="login-btn" class="btn btn--primary">登录</button>
+            <button type="button" id="register-btn" class="btn btn--ghost">注册</button>
+          </div>
+        </form>
+        <p class="tip">建议课堂演示直接使用 `demo / 123456`。</p>
+      </div>
+    </div>
+
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

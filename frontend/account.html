@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>账户中心 | 校内闲置集市</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="account-shell">
+      <header class="account-hero">
+        <div class="account-hero__identity">
+          <img id="account-avatar" class="account-avatar" src="" alt="avatar" />
+          <div>
+            <small>Account Center</small>
+            <strong id="account-username">请先登录</strong>
+            <span id="account-role-badge" class="role-badge">游客</span>
+            <div id="account-summary-inline" class="account-summary-inline"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <a class="btn btn--ghost" href="/">返回首页</a>
+          <button id="logout-btn" class="btn btn--primary">退出登录</button>
+        </div>
+      </header>
+
+      <main class="account-layout">
+        <aside class="account-side">
+          <section class="panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-heading__tag">快速切换</p>
+                <h2>内容视图</h2>
+              </div>
+            </div>
+            <div id="account-actions" class="account-actions"></div>
+          </section>
+        </aside>
+
+        <section class="panel panel--wide">
+          <div class="account-toolbar">
+            <div>
+              <p class="section-heading__tag">内容管理</p>
+              <h2 id="account-list-title">我的发布</h2>
+            </div>
+            <div class="account-toolbar__actions">
+              <input id="account-search" class="input hidden" type="text" placeholder="搜索普通用户名" />
+              <button id="account-back-users" class="btn btn--ghost hidden" type="button">返回用户列表</button>
+              <span id="account-list-meta" class="section-heading__tag">点击卡片可查看详情</span>
+            </div>
+          </div>
+          <div id="account-list" class="account-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="detail-modal" class="modal hidden">
+      <div class="modal__backdrop"></div>
+      <div class="modal__panel">
+        <button id="close-detail" class="modal__close">×</button>
+        <div id="detail-content"></div>
+      </div>
+    </div>
+
+    <script src="/assets/account.js"></script>
+  </body>
+</html>
