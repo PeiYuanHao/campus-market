@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .DS_Store
 backend/data/
+
+.github_deploy_key_campus_market*
